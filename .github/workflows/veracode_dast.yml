@@ -9,6 +9,10 @@ jobs:
       VERACODE_API_KEY_SECRET: ${{ secrets.VERACODE_API_KEY }}
       JOB_NAME: ${{ github.repository }}
       JOB_ID: ${{ github.run_number }}
+      Dynamic_Target: ${{ secrets.Dynamic_Target }}
+      Dynamic_Pass: ${{ secrets.Dynamic_Pass }}
+      Dynamic_Owner: ${{ secrets.Dynamic_Owner }}
+      Dynamic_Email: ${{ secrets.Dynamic_Email }}
     runs-on: ubuntu-latest
 
     
