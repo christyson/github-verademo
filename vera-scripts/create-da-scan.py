@@ -8,16 +8,21 @@ from veracode_api_py.dynamic import Analyses, Scans, ScanCapacitySummary, ScanOc
 
 #name of Dynamic Analysis will be the same as the name of the Github repository:
 analysis_name = "Project: " + os.environ.get("JOB_NAME") + " - Workflow Number: " + os.environ.get("JOB_ID")
+dynamic_target = os.getenv("Dynamic_Target")
+login_user = os.getenv("Dynamic_User")
+login_pass = os.getenv("Dynamic_Pass")
+owner_name = os.getenv("Dynamic_Owner")
+owner_email = os.getenv("Dynamic_Email")
 
 def main():
 
     #Payload for creating and scheduling new DA job
 
-    url = DynUtils().setup_url('http://my.verademo.site','DIRECTORY_AND_SUBDIRECTORY',False)
+    url = DynUtils().setup_url(dynamic_target,'DIRECTORY_AND_SUBDIRECTORY',False)
 
     allowed_hosts = [url]
 
-    auth = DynUtils().setup_auth('AUTO','admin','smithy')
+    auth = DynUtils().setup_auth('AUTO',login_user,login_pass)
 
     auth_config = DynUtils().setup_auth_config(auth)
 
@@ -38,7 +43,7 @@ def main():
 
     #Send configuration to Veracode and initiate Scan
 
-    analysis = Analyses().create(analysis_name,scans=[scan],owner='Andrzej',email='andrzej@example.com', start_scan=start_scan)
+    analysis = Analyses().create(analysis_name,scans=[scan],owner=owner_name,email=owner_email, start_scan=start_scan)
 
     print("Analysis Settings: ")
     print(analysis)
